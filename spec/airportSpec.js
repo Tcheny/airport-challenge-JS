@@ -2,6 +2,7 @@ describe("Airport", function() {
   var plane;
   var airport;
   var weather;
+  var airport2;
 
   beforeEach(function() {
     weather = new Weather();
@@ -32,10 +33,26 @@ describe("Airport", function() {
         expect(airport._planes).not.toContain(plane);
       });
     });
+    // As an air traffic controller
+    // To ensure safety
+    // I want to prevent landing when the airport is full
+    describe("Airport is full", function() {
+      it("Won't allow a plane to land if airport is full", function(){
+        for(i = 0; i < airport._defaultCapacity; i++){
+          airport.land(plane);
+        }
+        expect(function() {airport.land(plane)}).toThrowError("cannot land plane: airport is full");
+      })
+
+      it("Allows a change in default capacity", function(){
+        airport2 = new Airport(weather, 3)
+        expect(airport2._defaultCapacity).toEqual(3)
+      })
+    })
   });
 
 
-    describe("Weather is not stormy", function() {
+    describe("Weather is stormy", function() {
       beforeEach(function() {
         spyOn(weather, 'isStormy').and.returnValue(true);
       });
@@ -44,9 +61,16 @@ describe("Airport", function() {
       // I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
       describe("Takeoff plane", function() {
         it("cannot take off plane", function() {
-          airport.land(plane);
+          airport._planes.push(plane)
           expect(function() { airport.takeoff(plane)}).toThrowError("cannot takeoff plane: weather stormy");
         });
       });
+      describe("Land plane", function() {
+        it("cannot land a plane", function() {
+          expect(function() { airport.land(plane)}).toThrowError("cannot land plane: weather stormy");
+        });
+      });
     });
+
+
 });
