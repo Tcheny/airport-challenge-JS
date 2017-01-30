@@ -4,9 +4,10 @@ describe("Airport", function() {
   var weather;
 
   beforeEach(function() {
-    airport = new Airport();
-    plane = new Plane();
     weather = new Weather();
+    airport = new Airport(weather);
+    plane = new Plane();
+    //weather = new Weather();
   });
 
   describe("Weather is not stormy", function() {
@@ -33,19 +34,19 @@ describe("Airport", function() {
     });
   });
 
-  describe("Weather is not stormy", function() {
-    beforeEach(function() {
-      spyOn(weather, 'isStormy').and.returnValue(true);
-    });
-    // As an air traffic controller
-    //So I can get passengers on the way to their destination
-    // I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
-    describe("Takeoff plane", function() {
-      it("takes off a plane from an airport", function() {
-        airport.land(plane);
-        expect(airport.takeoff(plane)).toThrow('cannot takeoff plane: weather stormy');
+
+    describe("Weather is not stormy", function() {
+      beforeEach(function() {
+        spyOn(weather, 'isStormy').and.returnValue(true);
+      });
+      // As an air traffic controller
+      //So I can get passengers on the way to their destination
+      // I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
+      describe("Takeoff plane", function() {
+        it("cannot take off plane", function() {
+          airport.land(plane);
+          expect(function() { airport.takeoff(plane)}).toThrowError("cannot takeoff plane: weather stormy");
+        });
       });
     });
-  });
-
 });

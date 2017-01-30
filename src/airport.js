@@ -10,12 +10,15 @@ Airport.prototype.land = function(plane) {
 };
 
 Airport.prototype.takeoff = function(plane) {
+
   if (this._weather.isStormy()) {
     //throw('cannot takeoff plane: weather stormy');
-    throw new Error('cannot takeoff plane: weather stormy');
+    console.log("cannot takeoff plane: weather stormy");
+    throw new Error("cannot takeoff plane: weather stormy");
   }
   else
   {
+    console.log("plane can take off");
     plane.takeoff();
     var index = this._planes.indexOf(plane);
     this._planes.splice(index, 1);
