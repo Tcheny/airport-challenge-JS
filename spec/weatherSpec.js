@@ -8,7 +8,6 @@ describe("Weather", function() {
   describe("Weather is stormy", function() {
     it("makes the weather stormy", function(){
       spyOn(weather, 'isStormy').and.returnValue(true);
-
       expect(weather.isStormy()).toEqual(true);
     });
   });
@@ -16,7 +15,6 @@ describe("Weather", function() {
   describe("Weather is not stormy", function() {
     it("makes the weather not stormy", function(){
       spyOn(weather, 'isStormy').and.returnValue(false);
-
       expect(weather.isStormy()).toEqual(false);
     });
   });

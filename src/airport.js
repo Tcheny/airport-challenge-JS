@@ -8,7 +8,7 @@ Airport.prototype.land = function(plane) {
   if(this._weather.isStormy()){
     throw new Error("cannot land plane: weather stormy");
   }
-  else if(this._planes.length >= this._defaultCapacity){
+  else if(this._planes.length >= this._defaultCapacity) {
     throw new Error("cannot land plane: airport is full");
   }
   else{
@@ -19,13 +19,11 @@ Airport.prototype.land = function(plane) {
 };
 
 Airport.prototype.takeoff = function(plane) {
-
   if (this._weather.isStormy()) {
     throw new Error("cannot takeoff plane: weather stormy");
   }
   else
   {
-    console.log("plane can take off");
     plane.takeoff();
     var index = this._planes.indexOf(plane);
     this._planes.splice(index, 1);
