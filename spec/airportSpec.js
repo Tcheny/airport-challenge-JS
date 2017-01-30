@@ -1,29 +1,51 @@
 describe("Airport", function() {
   var plane;
   var airport;
+  var weather;
 
   beforeEach(function() {
     airport = new Airport();
     plane = new Plane();
+    weather = new Weather();
   });
 
-  // As an air traffic controller
-  // So I can get passengers to a destination
-  // I want to instruct a plane to land at an airport and confirm that it has landed
-  describe("Land plane", function() {
-    it("lands a plane at airport", function() {
-      expect(airport.land(plane)).toContain(plane);
+  describe("Weather is not stormy", function() {
+    beforeEach(function() {
+      spyOn(weather, 'isStormy').and.returnValue(false);
+    });
+    // As an air traffic controller
+    // So I can get passengers to a destination
+    // I want to instruct a plane to land at an airport and confirm that it has landed
+    describe("Land plane", function() {
+      it("lands a plane at airport", function() {
+        expect(airport.land(plane)).toContain(plane);
+      });
+    });
+    // As an air traffic controller
+    //So I can get passengers on the way to their destination
+    // I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
+    describe("Takeoff plane", function() {
+      it("takes off a plane from an airport", function() {
+        airport.land(plane);
+        airport.takeoff(plane);
+        expect(airport._planes).not.toContain(plane);
+      });
     });
   });
 
-  // As an air traffic controller
-  //So I can get passengers on the way to their destination
-  // I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
-  describe("Takeoff plane", function() {
-    it("takes off a plane from an airport", function() {
-      airport.land(plane);
-      airport.takeoff(plane);
-      expect(airport._planes).not.toContain(plane);
+  describe("Weather is not stormy", function() {
+    beforeEach(function() {
+      spyOn(weather, 'isStormy').and.returnValue(true);
+    });
+    // As an air traffic controller
+    //So I can get passengers on the way to their destination
+    // I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
+    describe("Takeoff plane", function() {
+      it("takes off a plane from an airport", function() {
+        airport.land(plane);
+        expect(airport.takeoff(plane)).toThrow('cannot takeoff plane: weather stormy');
+      });
     });
   });
+
 });

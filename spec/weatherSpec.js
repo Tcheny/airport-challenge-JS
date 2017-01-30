@@ -6,11 +6,19 @@ describe("Weather", function() {
   });
 
   describe("Weather is stormy", function() {
-    //spyOn(weather, 'isStormy');
+    it("makes the weather stormy", function(){
+      spyOn(weather, 'isStormy').and.returnValue(true);
 
-    //weather.isStormy.and.returnValue(true);
+      expect(weather.isStormy()).toEqual(true);
+    });
+  });
 
-    expect(weather.isStormy()).toEqual(true);
+  describe("Weather is not stormy", function() {
+    it("makes the weather not stormy", function(){
+      spyOn(weather, 'isStormy').and.returnValue(false);
+
+      expect(weather.isStormy()).toEqual(false);
+    });
   });
 
 });
