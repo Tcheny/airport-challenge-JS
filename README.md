@@ -1,7 +1,7 @@
 # Airport Challenge - Javascript
 #### Technologies: Javascript, Jasmine
 
-### [Makers Academy] (http://www.makersacademy.com) - Week 5 Pair Programming Project
+### [Makers Academy](http://www.makersacademy.com) - Week 5 Pair Programming Project
 
 ```
         ______
